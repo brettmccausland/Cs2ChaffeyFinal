@@ -7,6 +7,8 @@ bool getInput(string &first, string &second, char &op);
 void standardize(string &line);
 void reverse(string &line, vector<byte> &bignum);
 void process(string &first, string &second, char op, char position);
+void displayNumberWithCommas(const vector<byte> &num);
+void add(const vector<byte> &v1, const vector<byte> &v2, vector<byte> &result);
 // remove all non numbers
 void sanitize(string &line);
 int main()
@@ -79,6 +81,44 @@ bool getInput(string &first, string& second, char &op)
     sanitize(second);
     return true;
 }
+//my anwser is actually in reverse so i go back to front
+void displayNumberWithCommas(const vector<byte> &num)
+{
+    for(int i = num.size()-1; i >= 0; --i)
+    {
+        cout<<(unsigned short) num[i];
+        if(i && !(i%3))
+            cout<<",";
+    }
+}
+void add(const vector<byte> &v1, const vector<byte> &v2, vector<byte> &result)
+{
+    byte carry = 0;
+    unsigned short int digitResult;
+    size_t size = min(v1.size(),v2.size());
+    for(size_t i = 0; i < size; ++i)
+    {
+        digitResult = v1[i] + v2[i] + carry;
+        carry = digitResult/10;
+        result.push_back(digitResult % 10);
+    }
+    if(v1.size() >= v2.size())
+        for(size_t i = size; i <= v1.size()-1; ++i)
+        {
+            digitResult = v1[i] + carry;
+            carry = digitResult/10;
+            result.push_back(digitResult % 10);
+        }
+    else
+        for(size_t i = size; i <= v2.size()-1; ++i)
+        {
+            digitResult =  v2[i] + carry;
+            carry = digitResult/10;
+            result.push_back(digitResult % 10);
+        }
+    if(carry)
+        result.push_back(carry);
+}
 void process(string &first,string& second, char op, char position)
 {
     //erase leading zeros
@@ -92,6 +132,12 @@ void process(string &first,string& second, char op, char position)
     if(op=='+')
     {
         cout<<first<<'+'<<second<<endl;
+        reverse(first,firstV);
+        reverse(second,secondV);
+        add(firstV,secondV,resultV);
+        displayNumberWithCommas(resultV);
+
+
     }
     else if(op=='-')
     {
