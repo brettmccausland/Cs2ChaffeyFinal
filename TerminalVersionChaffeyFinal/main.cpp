@@ -9,6 +9,8 @@ void reverse(string &line, vector<byte> &bignum);
 void process(string &first, string &second, char op, char position);
 void displayNumberWithCommas(const vector<byte> &num);
 void add(const vector<byte> &v1, const vector<byte> &v2, vector<byte> &result);
+void multiply(const vector<byte> &v1,const byte size,vector<byte> &result);
+void bigmultiply(const vector<byte> &v1,const vector<byte> &v2,vector<byte> &result);
 // remove all non numbers
 void sanitize(string &line);
 int main()
@@ -45,10 +47,7 @@ void sanitize(string &line)
 void reverse(string &line, vector<byte> &bignum)
 {
     for(int i = line.size()-1; i >= 0; --i)
-    {
         bignum.push_back( (line[i]-48));
-        cout<<(line[i]-48)<<endl;
-    }
 }
 bool getInput(string &first, string& second, char &op)
 {
@@ -90,6 +89,48 @@ void displayNumberWithCommas(const vector<byte> &num)
         if(i && !(i%3))
             cout<<",";
     }
+    cout<<endl;
+}
+void multiply(const vector<byte> &v1,const byte size,vector<byte> &result)
+{
+    vector<byte> hold;
+    hold=v1;
+    if(size==0)
+        result.push_back(0);
+    else
+    {
+        for(int i=1;i<size;i++)
+        {
+            add(hold,v1,result);
+            hold=result;
+            result.clear();
+        }
+        result=hold;
+    }
+}
+void bigmultiply(const vector<byte> &v1,const vector<byte> &v2,vector<byte> &result)
+{
+    result=v1;
+    size_t t=0;
+    vector<byte> value;
+    vector<byte>finalresult;
+    vector<byte> hold;
+
+    for(size_t i=0; i<v2.size();i++)
+    {
+        multiply(v1,v2[i],value);
+        result=value;
+        for(int j=i;j>0;--j)
+        {
+            result.insert(result.begin(),t);
+        }
+        value.clear();
+        finalresult=hold;
+        hold.clear();
+        add(finalresult,result,hold);
+        result.clear();
+    }
+    result=hold;
 }
 void add(const vector<byte> &v1, const vector<byte> &v2, vector<byte> &result)
 {
@@ -136,8 +177,6 @@ void process(string &first,string& second, char op, char position)
         reverse(second,secondV);
         add(firstV,secondV,resultV);
         displayNumberWithCommas(resultV);
-
-
     }
     else if(op=='-')
     {
@@ -146,6 +185,10 @@ void process(string &first,string& second, char op, char position)
     else if(op=='*'|| op==',')
     {
            cout<<first<<'*'<<second<<endl;
+           reverse(first, firstV);
+           reverse(second, secondV);
+           bigmultiply(firstV,secondV,resultV);
+           displayNumberWithCommas(resultV);
     }
      else if(op=='/')
     {
