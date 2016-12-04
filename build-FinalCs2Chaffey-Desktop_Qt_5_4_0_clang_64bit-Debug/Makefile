@@ -160,6 +160,7 @@ DIST          = ../../../Qt/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.4/clang_64/mkspecs/features/qt_config.prf \
 		../../../Qt/5.4/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../Qt/5.4/clang_64/mkspecs/features/spec_post.prf \
+		../FinalCs2Chaffey/.qmake.stash \
 		../../../Qt/5.4/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt/5.4/clang_64/mkspecs/features/default_pre.prf \
 		../../../Qt/5.4/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -180,7 +181,8 @@ DIST          = ../../../Qt/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.4/clang_64/mkspecs/features/exceptions.prf \
 		../../../Qt/5.4/clang_64/mkspecs/features/yacc.prf \
 		../../../Qt/5.4/clang_64/mkspecs/features/lex.prf \
-		../FinalCs2Chaffey/FinalCs2Chaffey.pro ../FinalCs2Chaffey/mainwindow.h ../FinalCs2Chaffey/main.cpp \
+		../FinalCs2Chaffey/FinalCs2Chaffey.pro ../FinalCs2Chaffey/mainwindow.h \
+		../FinalCs2Chaffey/calculations.h ../FinalCs2Chaffey/main.cpp \
 		../FinalCs2Chaffey/mainwindow.cpp
 QMAKE_TARGET  = FinalCs2Chaffey
 DESTDIR       = #avoid trailing-slash linebreak
@@ -330,6 +332,7 @@ Makefile: ../FinalCs2Chaffey/FinalCs2Chaffey.pro ../../../Qt/5.4/clang_64/mkspec
 		../../../Qt/5.4/clang_64/mkspecs/features/qt_config.prf \
 		../../../Qt/5.4/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../Qt/5.4/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../Qt/5.4/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt/5.4/clang_64/mkspecs/features/default_pre.prf \
 		../../../Qt/5.4/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -462,6 +465,7 @@ Makefile: ../FinalCs2Chaffey/FinalCs2Chaffey.pro ../../../Qt/5.4/clang_64/mkspec
 ../../../Qt/5.4/clang_64/mkspecs/features/qt_config.prf:
 ../../../Qt/5.4/clang_64/mkspecs/macx-clang/qmake.conf:
 ../../../Qt/5.4/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../Qt/5.4/clang_64/mkspecs/features/exclusive_builds.prf:
 ../../../Qt/5.4/clang_64/mkspecs/features/default_pre.prf:
 ../../../Qt/5.4/clang_64/mkspecs/features/mac/default_pre.prf:
@@ -515,7 +519,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../FinalCs2Chaffey/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../FinalCs2Chaffey/mainwindow.h ../FinalCs2Chaffey/calculations.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../FinalCs2Chaffey/main.cpp ../FinalCs2Chaffey/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../FinalCs2Chaffey/mainwindow.ui $(DISTDIR)/
 
@@ -580,7 +584,8 @@ main.o: ../FinalCs2Chaffey/main.cpp ../FinalCs2Chaffey/mainwindow.h \
 mainwindow.o: ../FinalCs2Chaffey/mainwindow.cpp ../FinalCs2Chaffey/mainwindow.h \
 		../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
 		../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		../FinalCs2Chaffey/calculations.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../FinalCs2Chaffey/mainwindow.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

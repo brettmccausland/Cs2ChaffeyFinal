@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[22];
-    char stringdata[500];
+    char stringdata[501];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,46 +30,46 @@ struct qt_meta_stringdata_MainWindow_t {
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
-QT_MOC_LITERAL(1, 11, 23), // "on_lineEdit_textChanged"
-QT_MOC_LITERAL(2, 35, 0), // ""
-QT_MOC_LITERAL(3, 36, 4), // "arg1"
-QT_MOC_LITERAL(4, 41, 24), // "on_pushButton_7_released"
-QT_MOC_LITERAL(5, 66, 24), // "on_pushButton_4_released"
-QT_MOC_LITERAL(6, 91, 24), // "on_pushButton_1_released"
-QT_MOC_LITERAL(7, 116, 24), // "on_pushButton_8_released"
-QT_MOC_LITERAL(8, 141, 24), // "on_pushButton_5_released"
-QT_MOC_LITERAL(9, 166, 24), // "on_pushButton_2_released"
-QT_MOC_LITERAL(10, 191, 28), // "on_pushButton_add_2_released"
-QT_MOC_LITERAL(11, 220, 15), // "on_a_2_released"
-QT_MOC_LITERAL(12, 236, 24), // "on_pushButton_9_released"
-QT_MOC_LITERAL(13, 261, 24), // "on_pushButton_6_released"
-QT_MOC_LITERAL(14, 286, 24), // "on_pushButton_3_released"
-QT_MOC_LITERAL(15, 311, 31), // "on_pushButton_Multiply_released"
-QT_MOC_LITERAL(16, 343, 13), // "on_a_released"
-QT_MOC_LITERAL(17, 357, 28), // "on_pushButton_minus_released"
-QT_MOC_LITERAL(18, 386, 26), // "on_pushButton_add_released"
-QT_MOC_LITERAL(19, 413, 32), // "on_pushButton_Factorial_released"
-QT_MOC_LITERAL(20, 446, 24), // "on_pushButton_P_released"
-QT_MOC_LITERAL(21, 471, 28) // "on_PushButton_equal_released"
+QT_MOC_LITERAL(1, 11, 24), // "on_pushButton_1_released"
+QT_MOC_LITERAL(2, 36, 0), // ""
+QT_MOC_LITERAL(3, 37, 22), // "on_lineEdit_textEdited"
+QT_MOC_LITERAL(4, 60, 4), // "arg1"
+QT_MOC_LITERAL(5, 65, 15), // "on_a_2_released"
+QT_MOC_LITERAL(6, 81, 24), // "on_pushButton_7_released"
+QT_MOC_LITERAL(7, 106, 24), // "on_pushButton_2_released"
+QT_MOC_LITERAL(8, 131, 24), // "on_pushButton_3_released"
+QT_MOC_LITERAL(9, 156, 24), // "on_pushButton_6_released"
+QT_MOC_LITERAL(10, 181, 24), // "on_pushButton_5_released"
+QT_MOC_LITERAL(11, 206, 24), // "on_pushButton_4_released"
+QT_MOC_LITERAL(12, 231, 24), // "on_pushButton_8_released"
+QT_MOC_LITERAL(13, 256, 24), // "on_pushButton_9_released"
+QT_MOC_LITERAL(14, 281, 13), // "on_a_released"
+QT_MOC_LITERAL(15, 295, 32), // "on_pushButton_Factorial_released"
+QT_MOC_LITERAL(16, 328, 28), // "on_pushButton_minus_released"
+QT_MOC_LITERAL(17, 357, 28), // "on_PushButton_equal_released"
+QT_MOC_LITERAL(18, 386, 28), // "on_pushButton_Clear_released"
+QT_MOC_LITERAL(19, 415, 24), // "on_pushButton_0_released"
+QT_MOC_LITERAL(20, 440, 31), // "on_pushButton_Multiply_released"
+QT_MOC_LITERAL(21, 472, 28) // "on_pushButton_add_2_released"
 
     },
-    "MainWindow\0on_lineEdit_textChanged\0\0"
-    "arg1\0on_pushButton_7_released\0"
-    "on_pushButton_4_released\0"
-    "on_pushButton_1_released\0"
-    "on_pushButton_8_released\0"
-    "on_pushButton_5_released\0"
+    "MainWindow\0on_pushButton_1_released\0"
+    "\0on_lineEdit_textEdited\0arg1\0"
+    "on_a_2_released\0on_pushButton_7_released\0"
     "on_pushButton_2_released\0"
-    "on_pushButton_add_2_released\0"
-    "on_a_2_released\0on_pushButton_9_released\0"
-    "on_pushButton_6_released\0"
     "on_pushButton_3_released\0"
-    "on_pushButton_Multiply_released\0"
-    "on_a_released\0on_pushButton_minus_released\0"
-    "on_pushButton_add_released\0"
+    "on_pushButton_6_released\0"
+    "on_pushButton_5_released\0"
+    "on_pushButton_4_released\0"
+    "on_pushButton_8_released\0"
+    "on_pushButton_9_released\0on_a_released\0"
     "on_pushButton_Factorial_released\0"
-    "on_pushButton_P_released\0"
-    "on_PushButton_equal_released"
+    "on_pushButton_minus_released\0"
+    "on_PushButton_equal_released\0"
+    "on_pushButton_Clear_released\0"
+    "on_pushButton_0_released\0"
+    "on_pushButton_Multiply_released\0"
+    "on_pushButton_add_2_released"
 };
 #undef QT_MOC_LITERAL
 
@@ -87,8 +87,8 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,  109,    2, 0x08 /* Private */,
-       4,    0,  112,    2, 0x08 /* Private */,
+       1,    0,  109,    2, 0x08 /* Private */,
+       3,    1,  110,    2, 0x08 /* Private */,
        5,    0,  113,    2, 0x08 /* Private */,
        6,    0,  114,    2, 0x08 /* Private */,
        7,    0,  115,    2, 0x08 /* Private */,
@@ -108,8 +108,8 @@ static const uint qt_meta_data_MainWindow[] = {
       21,    0,  129,    2, 0x08 /* Private */,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QString,    3,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    4,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -136,25 +136,25 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         MainWindow *_t = static_cast<MainWindow *>(_o);
         switch (_id) {
-        case 0: _t->on_lineEdit_textChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 1: _t->on_pushButton_7_released(); break;
-        case 2: _t->on_pushButton_4_released(); break;
-        case 3: _t->on_pushButton_1_released(); break;
-        case 4: _t->on_pushButton_8_released(); break;
-        case 5: _t->on_pushButton_5_released(); break;
-        case 6: _t->on_pushButton_2_released(); break;
-        case 7: _t->on_pushButton_add_2_released(); break;
-        case 8: _t->on_a_2_released(); break;
-        case 9: _t->on_pushButton_9_released(); break;
-        case 10: _t->on_pushButton_6_released(); break;
-        case 11: _t->on_pushButton_3_released(); break;
-        case 12: _t->on_pushButton_Multiply_released(); break;
-        case 13: _t->on_a_released(); break;
-        case 14: _t->on_pushButton_minus_released(); break;
-        case 15: _t->on_pushButton_add_released(); break;
-        case 16: _t->on_pushButton_Factorial_released(); break;
-        case 17: _t->on_pushButton_P_released(); break;
-        case 18: _t->on_PushButton_equal_released(); break;
+        case 0: _t->on_pushButton_1_released(); break;
+        case 1: _t->on_lineEdit_textEdited((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 2: _t->on_a_2_released(); break;
+        case 3: _t->on_pushButton_7_released(); break;
+        case 4: _t->on_pushButton_2_released(); break;
+        case 5: _t->on_pushButton_3_released(); break;
+        case 6: _t->on_pushButton_6_released(); break;
+        case 7: _t->on_pushButton_5_released(); break;
+        case 8: _t->on_pushButton_4_released(); break;
+        case 9: _t->on_pushButton_8_released(); break;
+        case 10: _t->on_pushButton_9_released(); break;
+        case 11: _t->on_a_released(); break;
+        case 12: _t->on_pushButton_Factorial_released(); break;
+        case 13: _t->on_pushButton_minus_released(); break;
+        case 14: _t->on_PushButton_equal_released(); break;
+        case 15: _t->on_pushButton_Clear_released(); break;
+        case 16: _t->on_pushButton_0_released(); break;
+        case 17: _t->on_pushButton_Multiply_released(); break;
+        case 18: _t->on_pushButton_add_2_released(); break;
         default: ;
         }
     }
