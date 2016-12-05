@@ -15,12 +15,14 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -30,7 +32,9 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QLineEdit *lineEdit;
+    QLabel *label;
     QWidget *widget;
+    QVBoxLayout *verticalLayout;
     QGridLayout *gridLayout;
     QPushButton *pushButton_Clear;
     QPushButton *pushButton_add_2;
@@ -59,25 +63,31 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(341, 261);
+        MainWindow->resize(343, 309);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         lineEdit = new QLineEdit(centralWidget);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(0, 0, 341, 51));
+        lineEdit->setGeometry(QRect(0, 23, 340, 31));
         lineEdit->setAcceptDrops(true);
         lineEdit->setLayoutDirection(Qt::LeftToRight);
         lineEdit->setAutoFillBackground(true);
         lineEdit->setInputMethodHints(Qt::ImhDigitsOnly);
         lineEdit->setMaxLength(200);
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(0, 0, 331, 31));
         widget = new QWidget(centralWidget);
         widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(0, 50, 340, 146));
-        gridLayout = new QGridLayout(widget);
+        widget->setGeometry(QRect(0, 40, 342, 178));
+        verticalLayout = new QVBoxLayout(widget);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
         pushButton_Clear = new QPushButton(widget);
         pushButton_Clear->setObjectName(QStringLiteral("pushButton_Clear"));
 
@@ -173,10 +183,13 @@ public:
 
         gridLayout->addWidget(PushButton_equal, 4, 3, 1, 1);
 
+
+        verticalLayout->addLayout(gridLayout);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 341, 22));
+        menuBar->setGeometry(QRect(0, 0, 343, 22));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -193,6 +206,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        label->setText(QString());
         pushButton_Clear->setText(QApplication::translate("MainWindow", "C", 0));
         pushButton_add_2->setText(QApplication::translate("MainWindow", "+", 0));
         pushButton_Multiply->setText(QApplication::translate("MainWindow", "X", 0));

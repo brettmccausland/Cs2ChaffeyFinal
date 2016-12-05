@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    QString num1;
+    QString num1,num2;
     QVector<QString> ops;
     bool op1=false;
     ~MainWindow();
@@ -59,6 +59,8 @@ private slots:
     void on_pushButton_Multiply_released();
 
     void on_pushButton_add_2_released();
+
+    void on_label_objectNameChanged(const QString &objectName);
 
 private:
     Ui::MainWindow *ui;

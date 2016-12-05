@@ -114,14 +114,17 @@ void displayReverseCommas(const vector<byte> &num)
 }
 void saveReverseCommas(const vector<byte> &num,string& result)
 {
+    char temp;
     // Prints vector in reverse with commas
     for(int i = num.size()-1; i >= 0; --i)
     {
-        result.push_back((unsigned short) num[i]);
+        temp=((unsigned char)num[i]+48);//line[i]-48)
+        //cout<<"temp"<<temp;
+        result.push_back(temp);
         if(i && !(i%3))
             result.push_back(',');
     }
-
+    cout<<"result: "<<result<<endl;
 }
 void multiply(const vector<byte> &v1,const byte size,vector<byte> &result)
 {
