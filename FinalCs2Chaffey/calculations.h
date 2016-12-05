@@ -8,13 +8,14 @@ using namespace std;
 bool getInput(string &first, string &second, char &op);
 void standardize(string &line);
 void reverse(string &line, vector<byte> &bignum);
-void process(string &first, string &second, char op);
+void process(string &first, string &second, char op, string &result);
 void displayReverseCommas(const vector<byte> &num);
 void add(const vector<byte> &v1, const vector<byte> &v2, vector<byte> &result, bool addition);
 void multiply(const vector<byte> &v1,const byte size,vector<byte> &result);
 void bigmultiply(const vector<byte> &v1,const vector<byte> &v2,vector<byte> &result);
 void sanitize(string &line);
 void compliment( vector<byte>& OG,vector<byte>& NG);
+void saveReverseCommas(const vector<byte> &num, string &result);
 void demo();
 void demo()
 {
@@ -111,6 +112,17 @@ void displayReverseCommas(const vector<byte> &num)
     }
     cout<<endl;
 }
+void saveReverseCommas(const vector<byte> &num,string& result)
+{
+    // Prints vector in reverse with commas
+    for(int i = num.size()-1; i >= 0; --i)
+    {
+        result.push_back((unsigned short) num[i]);
+        if(i && !(i%3))
+            result.push_back(',');
+    }
+
+}
 void multiply(const vector<byte> &v1,const byte size,vector<byte> &result)
 {
     vector<byte> hold;
@@ -179,7 +191,7 @@ void add(const vector<byte> &v1, const vector<byte> &v2, vector<byte> &result,bo
     if(carry & addition)
         result.push_back(carry);
 }
-void process(string &first,string& second, char op)
+void process(string &first,string& second, char op,string&result)
 {
     //erase leading zeros
     while(second[0]=='0')
@@ -195,7 +207,7 @@ void process(string &first,string& second, char op)
         reverse(first,firstV);
         reverse(second,secondV);
         add(firstV,secondV,resultV,true);
-        displayReverseCommas(resultV);
+        saveReverseCommas(resultV, result);
     }
     else if(op=='-')
     {
@@ -204,7 +216,7 @@ void process(string &first,string& second, char op)
            reverse(second,secondV);
            compliment(secondV,mycomp);
            add(firstV,mycomp,resultV,false);
-           displayReverseCommas(resultV);
+          saveReverseCommas(resultV, result);
     }
     else if(op=='*'|| op==',')
     {
@@ -212,7 +224,7 @@ void process(string &first,string& second, char op)
            reverse(first, firstV);
            reverse(second, secondV);
            bigmultiply(firstV,secondV,resultV);
-           displayReverseCommas(resultV);
+           saveReverseCommas(resultV, result);
     }
      else if(op=='/')
     {

@@ -1,7 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include <stack>
 #include <QMainWindow>
+
 
 namespace Ui {
 class MainWindow;
@@ -13,8 +14,9 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    QString saved;
-    bool op;
+    QString num1;
+    QVector<QString> ops;
+    bool op1=false;
     ~MainWindow();
 
 private slots:
@@ -57,9 +59,6 @@ private slots:
     void on_pushButton_Multiply_released();
 
     void on_pushButton_add_2_released();
-
-
-
 
 private:
     Ui::MainWindow *ui;

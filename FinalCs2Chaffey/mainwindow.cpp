@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include"calculations.h"
-
+#include "vector"
+#include "stack"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -22,17 +23,51 @@ void MainWindow::on_pushButton_1_released()
 
 void MainWindow::on_lineEdit_textEdited(const QString &arg1)
 {
-    //QChar::iterator save;
-    QString s = ui->lineEdit->text();
-    QChar c = s[s.length()-1];
-    //QString S=*save;
-    QValidator *validator = new QIntValidator(0, 9, this);
-    QLineEdit *edit = new QLineEdit(this);
-    if(op)
+
+    //QValidator *validator = new QIntValidator(0, 9, this);
+    //QLineEdit *edit = new QLineEdit(this);
+    QString Qs;
+    QString nextoperator;
+    if(op1)
     {
-        ui->lineEdit->clear();
-        op=false;
-        ui->lineEdit->insert(c);
+
+        if(num1.isEmpty())
+        {
+            Qs = ui->lineEdit->text();
+            QChar c = Qs[Qs.length()-1];
+            num1=arg1;
+            num1.chop(1);
+            ui->lineEdit->clear();
+            ui->lineEdit->insert(c);
+            op1=false;
+        }
+        else
+        {
+            if(!ops.empty())
+           {
+                string result;
+                //get second num from line edit
+                Qs=ui->lineEdit->text();
+                //convert qstring to strings
+                string snum1=num1.toStdString();
+                string snum2=Qs.toStdString();
+                // delete the old number
+                num1.clear();
+                // get the next operator and remove it
+               QString nextoperator=ops.front();
+                ops.pop_front();
+                // convert from Qstring operator string
+                 string str_op=nextoperator.toStdString();
+                 //convert string to char
+                const char *cstr = str_op.c_str();
+                 process(snum1,snum2,*cstr,result);
+                 //convert result to qstr
+                 QString qstr = QString::fromStdString(result);
+                 ui->lineEdit->clear();
+                 ui->lineEdit->insert(qstr);
+                 op1=false;
+           }
+        }
     }
 
 }
@@ -89,20 +124,19 @@ void MainWindow::on_a_released()
 
 void MainWindow::on_pushButton_Factorial_released()
 {
-    ui->lineEdit->insert("!");
+
 }
 
 void MainWindow::on_pushButton_minus_released()
 {
-    ui->lineEdit->insert("-");
+
+   ops.push_back("-");
+   op1=true;
+
 }
 
 void MainWindow::on_PushButton_equal_released()
 {
-    QString blink;
-    op=true;
-   blink= ui->lineEdit->text();
-
 
 
 }
@@ -119,28 +153,12 @@ void MainWindow::on_pushButton_0_released()
 
 void MainWindow::on_pushButton_Multiply_released()
 {
-    QString num1 =ui->lineEdit->accessibleDescription();
-    vector<byte>Num1;
-    QString num2 =ui->lineEdit->accessibleDescription();
-    vector<byte>Num2;
-//    ui->lineEdit->event()
-//    unsigned char* test1 = (unsigned char*) num1.data();
-//     unsigned char* test2 = (unsigned char*) num2.data();
 
-//     // fill vector
-//    for(int i=0;i<num1.size();i++,++test1)
-//        Num1.push_back(*test1);
-//    for(int i=0;i<num2.size();i++,++test2)
-//        Num2.push_back(*test1);
-
-//     vector<byte>Result;
-//     bigmultiply(Num1,Num2,Result);
-//     ui->lineEdit_2=
-
+    ops.push_back("*");
+    op1=true;
 }
-
 void MainWindow::on_pushButton_add_2_released()
 {
-    ui->lineEdit->insert("+");
+    ops.push_back("+");
+    op1=true;
 }
-
