@@ -50,7 +50,7 @@ private slots:
 
     void on_pushButton_minus_released();
 
-    void on_PushButton_equal_released();
+    //void on_PushButton_equal_released();
 
     void on_pushButton_Clear_released();
 
@@ -61,6 +61,12 @@ private slots:
     void on_pushButton_add_2_released();
 
     void on_label_objectNameChanged(const QString &objectName);
+
+
+
+    void on_pushButton_divide_released();
+
+    void on_pushButton_released();
 
 private:
     Ui::MainWindow *ui;

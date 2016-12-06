@@ -24,68 +24,74 @@ void MainWindow::on_pushButton_1_released()
 void MainWindow::on_lineEdit_textEdited(const QString &arg1)
 {
 
-    //QValidator *validator = new QIntValidator(0, 9, this);
-    //QLineEdit *edit = new QLineEdit(this);
+
     QString Qs;
     QString nextoperator;
-//    if(!num1.isEmpty())
-//    {
 
-//        ui->lineEdit->clear();
-//    }
     if(op1)
     {
         cout<<"if op1"<<endl;
-        op1=false;
+        //op1=false;
         if(num1.isEmpty())
         {
+            QString r;
+             op1=false;
             cout<<"if num1 is empty"<<endl;
-            //Qs = ui->lineEdit->text();
-            //QChar c = Qs[Qs.length()-1];
-
             // get the line
             num1=ui->lineEdit->text();
             // clear the line
             ui->lineEdit->clear();
             num1.chop(num1.size()/2);
             cout<<"num1:"<<num1.toStdString()<<endl;
-            ui->label->setText(num1);
-           // num1.chop(num1.size()/2);
-            //num1.chop(1);
-           // ui->lineEdit->insert(c);
-
-        }
+            if(ops.empty())
+                ui->label->setText(num1);
+            else
+            {
+                r.push_back(num1);
+                r.push_back(ops.front());
+                ui->label->setText(r);
+            }
+         }
         else if(!ops.empty())
          {
+             op1=false;
             cout<<"ops is not empty"<<endl;
             if(!(num1.isEmpty()))
                {
-                cout<<"num1 is not empty"<<endl;
-                string result;
-                //get second num from line edit
-                Qs=ui->lineEdit->text();
-                Qs.chop(Qs.size()/2);
-                                                    //
-                //convert qstring to strings
-                string snum1=num1.toStdString();
-                string snum2=Qs.toStdString();
-                // delete the old number
-                num1.clear();
-                // get the next operator and remove it
-               QString nextoperator=ops.front();
-                ops.pop_front();
-                // convert from Qstring operator string
-                 string str_op=nextoperator.toStdString();
-                 //convert string to char
-                const char *cstr = str_op.c_str();
-                 process(snum1,snum2,*cstr,result);
-                 //convert result to qstr
-                 QString qstr = QString::fromStdString(result);
-                 num1=qstr;
-                // cout<<"num1"<<QString::fromStdString(num1)<<endl;
-                 ui->lineEdit->clear();
-                 ui->label->setText(qstr);
-                  op1=false;
+                     QString r;
+                    cout<<"num1 is not empty"<<endl;
+                    string result;
+                    //get second num from line edit
+                    Qs=ui->lineEdit->text();
+                    Qs.chop(Qs.size()/2);
+                    //convert qstring to strings
+                    string snum1=num1.toStdString();
+                    string snum2=Qs.toStdString();
+                    // delete the old number
+                    num1.clear();
+                    // get the next operator and remove it
+                    QString nextoperator=ops.front();
+                    ops.pop_front();
+                    // convert from Qstring operator string
+                    string str_op=nextoperator.toStdString();
+                    //convert string to char
+                    const char *cstr = str_op.c_str();
+                    process(snum1,snum2,*cstr,result);
+                    //convert result to qstr
+                    QString qstr = QString::fromStdString(result);
+                    num1=qstr;
+                    // cout<<"num1"<<QString::fromStdString(num1)<<endl;
+                     ui->lineEdit->clear();
+//                     ui->label->setText();
+                     if(ops.empty())
+                         ui->label->setText(qstr);
+                     else
+                     {
+                         r.push_back(num1);
+                         r.push_back(ops.front());
+                         ui->label->setText(r);
+                     }
+
            }
         }
 
@@ -154,15 +160,10 @@ void MainWindow::on_pushButton_minus_released()
 
    ops.push_back("-");
    op1=true;
+   QString r=ui->lineEdit->text();
+   ui->lineEdit->insert(r);
 
 }
-
-void MainWindow::on_PushButton_equal_released()
-{
-
-
-}
-
 void MainWindow::on_pushButton_Clear_released()
 {
     ui->lineEdit->clear();
@@ -189,9 +190,27 @@ void MainWindow::on_pushButton_add_2_released()
 {
     ops.push_back("+");
     op1=true;
+    QString r=ui->lineEdit->text();
+    ui->lineEdit->insert(r);
 }
 
 void MainWindow::on_label_objectNameChanged(const QString &objectName)
 {
 
+}
+
+void MainWindow::on_pushButton_divide_released()
+{
+    ops.push_back("/");
+    op1=true;
+    QString r=ui->lineEdit->text();
+    ui->lineEdit->insert(r);
+}
+
+void MainWindow::on_pushButton_released()
+{
+    QString r =ui->lineEdit->text();
+    r.chop(1);
+    ui->lineEdit->clear();
+    ui->lineEdit->insert(r);
 }

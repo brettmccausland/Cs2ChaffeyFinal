@@ -4,6 +4,8 @@
 #include<vector>
 #include <queue>
 typedef unsigned char byte;
+enum ERRORS {DivideByZero,SubtractionIsNegative};
+
 using namespace std;
 bool getInput(string &first, string &second, char &op);
 void standardize(string &line);
@@ -16,6 +18,11 @@ void bigmultiply(const vector<byte> &v1,const vector<byte> &v2,vector<byte> &res
 void sanitize(string &line);
 void compliment( vector<byte>& OG,vector<byte>& NG);
 void saveReverseCommas(const vector<byte> &num, string &result);
+bool GreaterThan(const vector <byte> v1, const vector<byte>v2);
+void ALTDivision(vector<byte>& v1, const vector<byte>& v2,vector<byte>& result);
+void subtractloop(vector<byte>& v1, const vector<byte> &v2, vector<byte>& result);
+bool Equality(const vector<byte>&v1,const vector<byte>& v2);
+void subtract(const vector<byte> &v1, const vector<byte> &v2, vector<byte> &result);
 void demo();
 void demo()
 {
@@ -214,12 +221,18 @@ void process(string &first,string& second, char op,string&result)
     }
     else if(op=='-')
     {
-           cout<<first<<'-'<<second<<endl;
-           reverse(first,firstV);
-           reverse(second,secondV);
-           compliment(secondV,mycomp);
-           add(firstV,mycomp,resultV,false);
-          saveReverseCommas(resultV, result);
+        reverse(first, firstV);
+        reverse(second, secondV);
+        try
+        {
+            subtract(firstV,secondV,resultV);
+            displayReverseCommas(resultV);
+            saveReverseCommas(resultV, result);
+        }
+        catch(ERRORS)
+            {
+            cout<<"invalid"<<endl;
+        }
     }
     else if(op=='*'|| op==',')
     {
@@ -232,9 +245,160 @@ void process(string &first,string& second, char op,string&result)
      else if(op=='/')
     {
            cout<<first<<'/'<<second<<endl;
+           reverse(first, firstV);
+           reverse(second,secondV);
+           try
+           {
+                   ALTDivision(firstV,secondV,resultV);
+                   saveReverseCommas(resultV, result);
+                   cout<<endl;
+
+           }
+           catch(ERRORS)
+           {
+               result="Invalid";
+           }
     }
     cin.clear();
 }
+void ALTDivision(vector<byte>& v1, const vector<byte>& v2,vector<byte>& result)
+{
+    if(!GreaterThan(v1,v2)&&!Equality(v1,v2))
+        result.push_back(0);
+
+    vector<byte> V1;
+    vector<byte> zero;
+    zero.push_back(0);
+    if(v2.empty())
+        throw DivideByZero;
+    vector<byte> temp;
+    long int i = v1.size()-1;
+
+    while(i >=0 )
+    {
+        while(GreaterThan(v2,V1) && i >=0)
+        {
+            V1.insert(V1.begin(),v1[i]);
+            --i;
+        }
+
+        if(V1.back()==0)
+            V1.pop_back();
+
+        if(GreaterThan(V1,v2) || Equality(V1,v2) )
+        {
+            subtractloop(V1,v2,temp);
+            for(unsigned long int Y =0; Y <= temp.size()-1;++Y)
+                result.insert(result.begin(),temp[Y]);
+            temp.clear();
+        }
+        else
+            result.insert(result.begin(),0);
+        if(V1.empty())
+            V1.push_back(0);
+    }
+    if(result.size()>1&&result.back()==0)
+        result.pop_back();
+
+     if(!(Equality(result,zero)))
+     {
+        v1.clear();
+        v1=V1;
+        V1.clear();
+    }
+
+}
+void subtractloop(vector<byte>& v1, const vector<byte> &v2, vector<byte>& result)
+{
+    vector<byte> temp;
+    vector<byte> one;
+    one.push_back(1);
+    while(GreaterThan(v1,v2) || Equality(v1,v2) )
+    {
+        subtract(v1,v2,temp);
+        v1=temp;
+        temp.clear();
+        if(((unsigned short)v1.back())==0)
+            v1.resize(v1.size()-1);
+
+        add(result,one,temp,true);
+        result=temp;
+        temp.clear();
+    }
+}
+
+bool Equality(const vector<byte>&v1,const vector<byte>& v2)
+{
+    bool SameSize = v1.size()==v2.size()? true : false;
+    if(SameSize)
+    {
+        int size = v1.size();
+        for(int i = 0;i <size;++i )
+        {
+            if(v1[i] != v2[i])
+                return false;
+        }
+        return true;
+    }
+    else
+        return false;
+}
+void subtract(const vector<byte> &v1, const vector<byte> &v2, vector<byte> &result)
+{
+        if(GreaterThan(v2,v1))
+            throw SubtractionIsNegative;
+        vector<byte> Nv2=v2;
+
+        vector<byte> mycomp;
+        size_t r= v1.size();
+        size_t original = v2.size();
+        for(size_t i= v2.size();i<=r;i++)
+            Nv2.push_back(0);
+        compliment( Nv2, mycomp);
+        Nv2.resize(original);
+        byte carry = 0;
+        unsigned short int digitResult;
+        size_t size = min(v1.size(),mycomp.size());
+        for(size_t i = 0; i < size; ++i)
+        {
+            digitResult = v1[i] + mycomp[i] + carry;
+            carry = digitResult/10;
+            result.push_back(digitResult % 10);
+        }
+        if(v1.size() >= mycomp.size())
+            for(size_t i = size; i <v1.size()-1; ++i)
+            {
+                digitResult = v1[i] + carry;
+                carry = digitResult/10;
+                result.push_back(digitResult % 10);
+            }
+        else
+            for(size_t i = size; i < mycomp.size()-1; ++i)
+            {
+                digitResult =  mycomp[i] + carry;
+                carry = digitResult/10;
+                result.push_back(digitResult % 10);
+            }
+}
+bool GreaterThan(const vector <byte> v1, const vector<byte>v2)
+{
+    if(v1.size()>v2.size())
+        return true;
+    else if(v1.size()<v2.size())
+        return false;
+    else
+    {
+        for(size_t i=1;i<=v1.size();i++)
+        {
+            if(v1[v1.size()-i]>v2[v2.size()-i])
+                return true;
+            else if(v2[v2.size()-i]>v1[v1.size()-i])
+                return false;
+        }
+    }
+    return false;
+}
+
 //Resources
 //https://en.wikipedia.org/wiki/C_data_types
 //http://stackoverflow.com/questions/75191/what-is-an-unsigned-char
