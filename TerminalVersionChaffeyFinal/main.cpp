@@ -121,8 +121,10 @@ void displayReverseCommas(const vector<byte> &num)
 }
 void multiply(const vector<byte> &v1,const byte size,vector<byte> &result)
 {
+   // make a copy of the original number
     vector<byte> hold;
     hold=v1;
+    //if the number is 0 done
     if(size==0)
         result.push_back(0);
     else
@@ -143,33 +145,41 @@ void bigmultiply(const vector<byte> &v1,const vector<byte> &v2,vector<byte> &res
     vector<byte> value;
     vector<byte>finalresult;
     vector<byte> hold;
-
+    //go to everdigit place  of the second number
     for(size_t i=0; i<v2.size();i++)
     {
+        // loop that adds the number V1 to itself v2[i] times and stores the result in value
         multiply(v1,v2[i],value);
+        // get value clear it
         result=value;
+        value.clear();
+        //add the number of 0's that coresponds to its digit place
         for(int j=i;j>0;--j)
             result.insert(result.begin(),t);
-
-        value.clear();
+        //add the previous number of
         finalresult=hold;
         hold.clear();
+        //add prevois digit place to the next digit place
         add(finalresult,result,hold,true);
         result.clear();
     }
     result=hold;
 }
+//precondition : the numbers are reversed before calling this function bool addition is true
 void add(const vector<byte> &v1, const vector<byte> &v2, vector<byte> &result,bool addition)
 {
     byte carry = 0;
     unsigned short int digitResult;
+   // get the mininum length number
     size_t size = min(v1.size(),v2.size());
+   //add for the number of characters they both have
     for(size_t i = 0; i < size; ++i)
     {
         digitResult = v1[i] + v2[i] + carry;
         carry = digitResult/10;
         result.push_back(digitResult % 10);
     }
+    // which one is the longer one
     if(v1.size() >= v2.size())
         for(size_t i = size; i <= v1.size()-1; ++i)
         {
